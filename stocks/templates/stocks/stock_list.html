@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>股票觀察清單</title>
+</head>
+<body>
+    <h1>我的股票清單</h1>
+    {% if stocks %}
+        <ul>
+            {% for stock in stocks %}
+                <li>{{ stock.symbol }} - {{ stock.name }} - {{ stock.buy_price }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>還沒有任何股票，快去新增！</p>
+    {% endif %}
+</body>
+</html>
