@@ -5,6 +5,16 @@
 </head>
 <body>
     <h1>我的股票清單</h1>
+
+    {% if user.is_authenticated %}
+        <p>你好，{{ user.username }}！</p>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">登出</button>
+    {% else %}
+        <a href="{% url 'login' %}">登入</a>
+    {% endif %}
+
     {% if stocks %}
         <ul>
             {% for stock in stocks %}
