@@ -117,5 +117,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+# 登入或登出 成功 跳轉到 /stokcs/ 頁面
+LOGIN_REDIRECT_URL = '/stocks/'
+LOGOUT_REDIRECT_URL = '/stocks/'
