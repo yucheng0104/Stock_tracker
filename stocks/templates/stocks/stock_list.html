@@ -15,6 +15,7 @@
         <a href="{% url 'login' %}">登入</a>
     {% endif %}
 
+    <a href="{% url 'stock_create' %}">新增股票</a>
     {% if stocks %}
         <ul>
             {% for stock in stocks %}
