@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import yfinance as yf
 # Create your models here.
 
 class Stock(models.Model):
@@ -11,3 +12,14 @@ class Stock(models.Model):
 
     def __str__(self):
         return f"{self.symbol} - {self.name}"
+    
+    # 用 yfinance 取得目前股價
+    def get_current_price(self):
+        try:
+
+            symbol = f"{self.symbol}.TW" if self.symbol[0].isdigit() else self.symbol
+            ticker = yf.Ticker(symbol)
+            data = ticker.fast_info
+            return round(data.last_price, 2)
+        except Exception :
+            return None

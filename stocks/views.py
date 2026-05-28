@@ -10,6 +10,9 @@ from .forms import StockForm
 def stock_list(request):
     # 只撈出屬於目前使用者的股票資料
     stocks = Stock.objects.filter(user=request.user)
+    # 為每筆股票加上即時股價
+    for stock in stocks:
+        stock.current_price = stock.get_current_price()
     return render(request, 'stocks/stock_list.html', {'stocks': stocks})
 
 
