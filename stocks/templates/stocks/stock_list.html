@@ -1,28 +1,38 @@
 {% extends 'base.html' %}
 
 {% block title %} 股票清單 {% endblock%}
+
 {% block content %}
+<div class="d-flex justify-conyeny-between align-items-center mb-3 w-100">
     <h1>我的股票清單</h1>
+    <a href="{% url 'stock_create' %}" class="btn btn-primary ms-auto ">新增股票</a>
+</div>
 
-    {% if user.is_authenticated %}
-        <p>你好，{{ user.username }}！</p>
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit">登出</button>
-    {% else %}
-        <a href="{% url 'login' %}">登入</a>
-    {% endif %}
-
-    <a href="{% url 'stock_create' %}">新增股票</a>
-    {% if stocks %}
-        <ul>
-            {% for stock in stocks %}
-                <li>{{ stock.symbol }} - {{ stock.name }} - {{ stock.buy_price }}</li>
-                <a href="{% url 'stock_edit' stock.pk %}">編輯</a>
-                <a href="{% url 'stock_delete' stock.pk %}">刪除</a>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>還沒有任何股票，快去新增！</p>
-    {% endif %}
-{% endblock%}
+{% if stocks %}
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>股票代號</th>
+            <th>股票名稱</th>
+            <th>買入價格</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stock in stocks %}
+        <tr>
+            <td>{{ stock.symbol }}</td>
+            <td>{{ stock.name }}</td>
+            <td>{{ stock.buy_price }}</td>
+            <td>
+                <a href="{% url 'stock_edit' stock.pk %}" class="btn btn-warning btn-sm">編輯</a>
+                <a href="{% url 'stock_delete' stock.pk %}" class="btn btn-danger btn-sm">刪除</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="alert alert-info">還沒有任何股票，快去新增！</div>
+{% endif %}
+{% endblock %}

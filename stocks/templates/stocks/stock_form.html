@@ -4,11 +4,20 @@
 
 {% block content %}
 
-<h1>新增股票</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">儲存</button>
-</form>
-<a href="{% url 'stock_list' %}">返回清單</a>
-{% endblock%}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="mb-4">新增股票</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-flex gap-2">
+                <button type="submit">儲存</button>
+                <a href="{% url 'stock_list' %}" class="btn btn-primary">取消</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+{% endblock %}
