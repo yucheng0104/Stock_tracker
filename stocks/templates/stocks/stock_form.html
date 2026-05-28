@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>新增股票</title>
-</head>
-<body>
-    <h1>新增股票</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">儲存</button>
-    </form>
-    <a href="{% url 'stock_list' %}">返回清單</a>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title%} 股票表單 {% endblock%}
+
+{% block content %}
+
+<h1>新增股票</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">儲存</button>
+</form>
+<a href="{% url 'stock_list' %}">返回清單</a>
+{% endblock%}

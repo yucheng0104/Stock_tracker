@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>註冊</title>
-</head>
-<body>
-    <h1>註冊</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">註冊</button>
-    </form>
-    <p>已有帳號？<a href="{% url 'login' %}">登入</a></p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}註冊{% endblock %}
+
+{% block content%}
+<h1>註冊</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">註冊</button>
+</form>
+<p>已有帳號？<a href="{% url 'login' %}">登入</a></p>
+{% endblock%}
