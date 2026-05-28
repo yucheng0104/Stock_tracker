@@ -18,6 +18,8 @@
         <ul>
             {% for stock in stocks %}
                 <li>{{ stock.symbol }} - {{ stock.name }} - {{ stock.buy_price }}</li>
+                <a href="{% url 'stock_edit' stock.pk %}">編輯</a>
+                <a href="{% url 'stock_delete' stock.pk %}">刪除</a>
             {% endfor %}
         </ul>
     {% else %}

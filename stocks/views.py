@@ -43,3 +43,13 @@ def stock_edit(request, pk):
         # 第一次進頁面，預先填入現有資料
         form = StockForm(instance=stock)
     return render(request, 'stocks/stock_form.html', {'form': form})
+
+@login_required
+def stock_delete(request, pk):
+    # 找到指定的股票，確保只能刪除自己的股票，找不到回傳 404 頁面
+    stock = get_object_or_404(Stock, pk=pk, user=request.user)
+    if request.method == 'POST':
+        # 確認 POST 後才執行刪除動作，避免使用者誤觸連結就刪除資料
+        stock.delete()
+        return redirect('stock_list')
+    return render(request, 'stocks/stock_confirm_delete.html', {'stock': stock})
