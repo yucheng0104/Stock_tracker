@@ -22,8 +22,8 @@
     <tbody>
         {% for stock in stocks %}
         <tr>
-            <td>{{ stock.symbol }}</td>
-            <td>{{ stock.name }}</td>
+            <td><a href="{% url 'stock_detail' stock.pk %}">{{ stock.symbol }}</a></td>
+            <td><a href="{% url 'stock_detail' stock.pk %}">{{ stock.name }}</a></td>
             <td>{{ stock.buy_price }}</td>
             <td>
                 {% if stock.current_price %}

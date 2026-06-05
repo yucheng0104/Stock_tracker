@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ stock.symbol }} - {{ stock.name }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>{{ stock.symbol }} - {{ stock.name }}</h1>
+    <a href="{% url 'stock_list' %}" class="btn btn-secondary">返回清單</a>
+</div>
+
+<div class="mb-3">
+    <a href="?period=1mo"
+        class="btn {% if period == '1mo' %}btn-primary{% else %}btn-outline-primary{% endif %}">1個月</a>
+    <a href="?period=3mo"
+        class="btn {% if period == '3mo' %}btn-primary{% else %}btn-outline-primary{% endif %}">3個月</a>
+    <a href="?period=6mo"
+        class="btn {% if period == '6mo' %}btn-primary{% else %}btn-outline-primary{% endif %}">6個月</a>
+    <a href="?period=1y" class="btn {% if period == '1y' %}btn-primary{% else %}btn-outline-primary{% endif %}">1年</a>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <!-- safe 告訴 Django 這是安全的 HTML，直接渲染不要跳脫 -->
+        {{ chart|safe }}
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5>股票資訊</h5>
+        <p>股票代號：{{ stock.symbol }}</p>
+        <p>股票名稱：{{ stock.name }}</p>
+        <p>買入價格：{{ stock.buy_price }}</p>
+        <p>現在價格：
+            {% if stock.current_price %}
+            {{ stock.current_price }}
+            {% else %}
+            <span class="text-muted">無法取得價格</span>
+            {% endif %}
+        </p>
+    </div>
+</div>
+{% endblock %}
