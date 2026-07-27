@@ -78,6 +78,13 @@ def stock_detail(request, pk):
     ticker = yf.Ticker(symbol1)
     hist = ticker.history(period=period)
 
+    # 計算均線
+    hist["MA5"] = hist["Close"].rolling(window=5).mean()
+    hist["MA20"] = hist["Close"].rolling(window=20).mean()
+    hist["MA60"] = hist["Close"].rolling(window=60).mean()
+
+    
+
     # 繪製股價走勢圖
     fig = go.Figure(
         data=[
@@ -87,9 +94,14 @@ def stock_detail(request, pk):
                 high=hist["High"],
                 low=hist["Low"],
                 close=hist["Close"],
+                name="K線",
             )
         ]
     )
+
+    fig.add_trace(go.Scatter(x=hist.index, y=hist["MA5"],  name="MA5",line=dict(color="orange", width = 1)))
+    fig.add_trace(go.Scatter(x=hist.index, y=hist["MA60"], name="MA60",line=dict(color="blue", width = 1)))
+    fig.add_trace(go.Scatter(x=hist.index, y=hist["MA20"], name="MA20",line=dict(color="purple", width = 1)))
 
     fig.update_layout(
         title=f"{stock.symbol} - ({stock.name}) 股價走勢圖",
